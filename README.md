@@ -20,4 +20,34 @@ Install the required Python packages using pip:
 ```bash
 pip install phonopy numpy matplotlib
 
+## Usage
+
+1. Place your VASP POSCAR file in the working directory.
+
+2. Modify the `prepare_phonon_calculation.py` script to set the supercell size for the phonon calculation. Then, run the script to generate displaced structures and the `disp.yaml` file:
+
+## python prepare_phonon_calculation.py
+
+3. Prepare the necessary VASP input files (INCAR, KPOINTS, POTCAR) for running the calculations on the displaced structures.
+
+4. Update the `num_displacements` variable in the `run_vasp_phonon.py` script according to the number of displacement configurations. Adjust the VASP command and the number of processors as needed. Run the script to perform VASP calculations on the displaced structures:
+
+## python run_vasp_phonon.py
+
+5. Run the `collect_forces.py` script to collect forces from the VASP calculations and generate the FORCE_SETS file:
+
+## python collect_forces.py
+
+
+6. Create a Phonopy configuration file (`phonopy.conf`) to define the settings for the band structure calculation. Adjust the supercell size (DIM), mesh size (MP), and band paths (BAND) as needed:
+
+
+7. Run Phonopy to calculate the force constants and the phonon band structure:
+
+```phonopy -c POSCAR --fc FORCE_SETS --dim="2 2 2" --band="0 0 0 0.5 0.5 0 0.5 0.5 0.5 0 0 0"```
+
+8. Run the `plot_band_structure.py` script to visualize the phonon band structure:
+
+ 
+
 
